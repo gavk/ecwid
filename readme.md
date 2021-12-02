@@ -1,11 +1,11 @@
 
 # Table of Contents
 
-1.  [Задание](#orgd8d0871)
-2.  [Решение](#orgcefd197)
+1.  [Задание](#orgd2a68f1)
+2.  [Решение](#orgca0aa39)
 
 
-<a id="orgd8d0871"></a>
+<a id="orgd2a68f1"></a>
 
 # Задание
 
@@ -32,7 +32,7 @@
 Смотри [наши вакансии на hh.ru](https://ulyanovsk.hh.ru/search/vacancy?st=searchVacancy&text=DevOps+%D0%AD%D0%BA%D0%B2%D0%B8%D0%B4&salary=&currency_code=RUR&experience=doesNotMatter&order_by=relevance&search_period=0&items_on_page=50&no_magic=true&L_save_area=true), там вкратце о том, кого мы ищем и что предстоит делать ;)
 
 
-<a id="orgcefd197"></a>
+<a id="orgca0aa39"></a>
 
 # Решение
 
@@ -56,7 +56,7 @@
 
 На порту 8000 нет ничего, но какой-то сервис висит на 8082. Меняю порт назначения в конфиге nginx и перезапускаю его. Снова иду на <http://localhost:3000> и вижу пустую страницу. Смотрю логи box. Вижу, что ему не хватило памяти. Увеличиваю ему память до 250 МБ в /etc/init.d/box и перезапускаю его.
 Обновляю <http://localhost:3000>. Вижу чёрный квадрат с 3 пройденными и 2 заваленными проверками. Смотрю логи постгреса. Последовательно добавляю: пользователя (пароль из файла /etc/box.properties), базу данных, таблицу (схема таблицы /opt/box/schema.sql), своё мыло в неё. Получаю код: 54502917495705063000237613323081902911576395265967119224924316489932875339594
-Варианты Dockerfile:
+Первый вариант решения:
 
     FROM ecwid/ops-test-task:20210311a
     
@@ -71,6 +71,8 @@
     service postgresql stop
     
     ENTRYPOINT ["/startup"]
+
+Второй вариант решения:
 
     FROM ecwid/ops-test-task:20210311a AS builder
     

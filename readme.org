@@ -47,7 +47,7 @@ docker run -p 3000:80 -it ecwid/ops-test-task:20210311a
   #+end_src
   На порту 8000 нет ничего, но какой-то сервис висит на 8082. Меняю порт назначения в конфиге nginx и перезапускаю его. Снова иду на http://localhost:3000 и вижу пустую страницу. Смотрю логи box. Вижу, что ему не хватило памяти. Увеличиваю ему память до 250 МБ в /etc/init.d/box и перезапускаю его.
   Обновляю http://localhost:3000. Вижу чёрный квадрат с 3 пройденными и 2 заваленными проверками. Смотрю логи постгреса. Последовательно добавляю: пользователя (пароль из файла /etc/box.properties), базу данных, таблицу (схема таблицы /opt/box/schema.sql), своё мыло в неё. Получаю код: 54502917495705063000237613323081902911576395265967119224924316489932875339594
-  Варианты Dockerfile:
+  Первый вариант решения:
   #+begin_src yaml :mkdirp yes :tangle variant-1/Dockerfile
     FROM ecwid/ops-test-task:20210311a
 
@@ -63,7 +63,8 @@ docker run -p 3000:80 -it ecwid/ops-test-task:20210311a
 
     ENTRYPOINT ["/startup"]
   #+end_src
-
+  
+  Второй вариант решения:
   #+begin_src yaml :mkdirp yes :tangle variant-2/Dockerfile
     FROM ecwid/ops-test-task:20210311a AS builder
 
